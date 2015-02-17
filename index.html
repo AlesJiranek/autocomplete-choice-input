@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Autocomplete Choice Input</title>
+    <meta name="author" content="Aleš Jiránek">
+    <meta name="robots" content="noindex, nofollow">
+
+    <script type="text/javascript" src="docs/js/jquery.min.js"></script>
+    <script type="text/javascript" src="docs/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="docs/js/prettify.min.js"></script>
+
+    <link href="docs/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="docs/css/bootstrap.docs.min.css" type="text/css" rel="stylesheet">
+    <link href="docs/css/prettify.css" type="text/css" rel="stylesheet">
+    <link href="docs/css/example.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript" src="dist/js/autocomplete-choice-input.js"></script>
+    <link href="dist/css/autocomplete-choice-input.css" type="text/css" rel="stylesheet">
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            window.prettyPrint() && prettyPrint();
+        });
+    </script>
+</head>
+<body data-spy="scroll" data-target="#affix">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3" id="affix">
+                <ul class="nav nav-pills nav-stacked sidebar affix">
+                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li><a href="#options">Configuration Options</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="page-header">
+                    <h1>Autocomplete Choice Widget</h1>
+                </div>
+
+
+                <div class="page-header">
+                    <h2 id="getting-started">Getting Started</h2>
+                </div>
+                <ol>
+                    <li>
+                        <h3>Link the Required Files</h3>
+                        <p>
+                            <a href="http://jquery.com" target="_blank">jQuery</a> library has to be included first. Then plugins javascript and css files has to be included both.
+                        </p>
+<pre class="prettyprint linenums">
+&lt;!-- Include jQuery: --&gt;
+&lt;script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- Include the plugin's CSS and JS: --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;js/autocomplete-choice-input.js&quot;&gt;&lt;/script&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;css/autocomplete-choice-input.css&quot; type=&quot;text/css&quot;/&gt;
+</pre>
+                        <div class="alert alert-info">
+                            Plugin will work both with version 2.x of the jQuery library as well as with version 1.10.x of the jQuery library.
+                        </div>
+                    </li>
+                    <li>
+                        <h3>Create input with choice data</h3>
+                        <p>Now simply use HTML and create <code>input</code> type <code>type="text"</code> and fill data attribute options <code>data-options="{}"</code> with values that will be selectable.</p>
+<pre class="prettyprint linenums">
+&lt;input type="text" name="example1" id="example1"
+       data-options="{val-1:"Label 1", val-2:"Label 2"}" &gt;
+</pre>
+                    </li>
+                    <li>
+                        <h3>Call the plugin</h3>
+                        <p>In the end, simply call the plugin on your <code>input</code>.You may also specify further options, see the Options tab for more information.</p>
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+       $('#example1').autocompleteChoiceInput();
+    });
+&lt;/script&gt;
+</pre>
+                    </li>
+                </ol>
+
+
+                <div class="page-header">
+                    <h2 id="options">Options</h2>
+                </div>
+
+                <div class="alert alert-info">
+                    Use Firebug, Chrome Developer Tools to get the best out of the below examples.
+                </div>
+
+                <div class="alert alert-warning">
+                    Don't forget to escape <code>data-options</code> value if you are passing items directly as javascript object string.
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>minLenght</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-minLength').autocompleteChoiceInput({
+                                    minLength: 3
+                                });
+                            });
+                        </script>
+                        <p><code>minLenght</code> sets number of characters, which has to be typed to start suggesting words.</p>
+                        <div class="bs-example">
+                            <input type="text" class="form-control" name="example-minLength" id="example-minLength" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-minLength').autocompleteChoiceInput({
+            minLength: 3
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-minLength" id="example-minLenght"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>maxItems</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-maxItems').autocompleteChoiceInput({
+                                    maxItems: 2
+                                });
+                            });
+                        </script>
+                        <p><code>maxItems</code> sets max count of suggested items</p>
+                        <div class="bs-example">
+                            <input type="text" class="form-control" name="example-maxItems" id="example-maxItems" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-maxItems').autocompleteChoiceInput({
+            maxItems: 2
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-maxItems" id="example-maxItems"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
