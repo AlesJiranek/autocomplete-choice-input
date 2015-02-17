@@ -51,6 +51,7 @@ AutocompleteChoiceInput.prototype = {
         this.createSelectedItemsCounter();
         this.createAutocompleteList();
         this.addInputListener();
+        this.setDefaultSelectedItems();
     },
 
 
@@ -137,7 +138,8 @@ AutocompleteChoiceInput.prototype = {
      */
     updateSelected: function () {
         this.updateSelectedItemsList();
-        this.updateItemsCounter()
+        this.updateItemsCounter();
+        this.updateSelectedInput();
     },
 
 
@@ -174,6 +176,26 @@ AutocompleteChoiceInput.prototype = {
     },
 
 
+    /**
+     * Updates input value with selected data
+     */
+    updateSelectedInput: function () {
+        if (this.options.singleText) {
+            this.element.val(this.getSelectedAsString());
+        }
+        else {
+            this.element.parent().find('input[type="hidden"][name="' + this.elementName + '[]"]').remove();
+
+            for (var key in this.selectedData) {
+                var hidden = $('<input type="hidden">');
+                hidden.attr('name', this.elementName + '[]');
+                hidden.val(key);
+                this.element.parent().append(hidden);
+            }
+        }
+    },
+
+    
     /**
      * Update suggested items list
      * @param values   Object    suggested items
@@ -241,17 +263,6 @@ AutocompleteChoiceInput.prototype = {
     addSuggestedItem: function (li) {
         this.selectedData[li.attr('id')] = li.text();
         this.updateSelected();
-
-        if (this.options.singleText) {
-            this.element.val(this.getSelectedAsString());
-        }
-        else {
-            var hidden = $('<input type="hidden">');
-            hidden.attr('name', this.elementName + '[]');
-            hidden.val(li.attr('id'));
-            this.element.parent().append(hidden);
-        }
-
     },
 
 
@@ -262,15 +273,6 @@ AutocompleteChoiceInput.prototype = {
     removeSelectedItem: function (li) {
         delete this.selectedData[li.attr('id')];
         this.updateSelected();
-
-        if (this.options.singleText) {
-            this.element.val(this.getSelectedAsString());
-        }
-        else {
-            this.element.parent()
-                .find('input[type="hidden"][name="' + this.elementName + '[]"][value="' + li.attr('id') + '"]')
-                .remove();
-        }
     },
 
 
@@ -285,5 +287,24 @@ AutocompleteChoiceInput.prototype = {
             str += key + this.options.singleTextDelimiter;
 
         return str;
+    },
+
+
+    /**
+     * Creates default selected list from input value
+     */
+    setDefaultSelectedItems: function () {
+        if (this.element.val() != '') {
+            var values = this.element.val();
+            values = values.split(this.options.singleTextDelimiter);
+
+            for (var i = 0; i < values.length; i++) {
+                if (typeof this.autocompleteValues[values[i]] !== 'undefined') {
+                    this.selectedData[values[i]] = this.autocompleteValues[values[i]];
+                }
+            }
+        }
+
+        this.updateSelected();
     }
 };
