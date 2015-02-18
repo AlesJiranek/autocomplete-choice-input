@@ -22,6 +22,12 @@ jQuery.fn.extend({
 function AutocompleteChoiceInput(element, options) {
     this.element = $(element);
     this.options = $.extend(this.options, options);
+
+    if (this.element.data('autocompletechoiceinput') == true)
+        return false;
+    else
+        this.element.data('autocompletechoiceinput', true);
+
     this.init();
 }
 
@@ -36,16 +42,17 @@ AutocompleteChoiceInput.prototype = {
     selectedData: {},
     autocompleteValues: {},
     cache: {},
-    input: $('<input type="text">'),
-    selectedItemsCounter: $('<div class="autocomplete-choice-input-items-counter"></div>'),
-    selectedItemsList: $('<ul class="autocomplete-choice-input-selected-list">'),
-    autocompleteList: $('<ul class="autocomplete-choice-input-autocomplete">'),
+    input: {},
+    selectedItemsCounter: {},
+    selectedItemsList: {},
+    autocompleteList: {},
 
     /**
      * Creates autocomplete choice input
      */
     init: function () {
         this.buildContainer();
+        this.createInput();
         this.setAutocompleteData();
         this.createSelectedItemsList();
         this.createSelectedItemsCounter();
@@ -68,11 +75,19 @@ AutocompleteChoiceInput.prototype = {
 
 
     /**
-     * Creates container and input for input
+     * Creates container for input
      */
     buildContainer: function () {
         this.element.wrap('<div class="autocomplete-choice-input">');
         this.element.parent().css('position', 'relative');
+    },
+
+
+    /**
+     * Creates input
+     */
+    createInput: function () {
+        this.input = $('<input type="text">');
         this.input.attr('class', this.element.attr('class'));
         this.input.attr('placeholder', this.element.attr('placeholder'));
         this.element.parent().append(this.input);
@@ -89,6 +104,8 @@ AutocompleteChoiceInput.prototype = {
      * Creates counter of selected items visible on right side of input
      */
     createSelectedItemsCounter: function () {
+        this.selectedItemsCounter = $('<div class="autocomplete-choice-input-items-counter"></div>');
+
         this.selectedItemsCounter.text(Object.keys(this.selectedData).length);
         this.element.parent().append(this.selectedItemsCounter);
 
@@ -103,6 +120,8 @@ AutocompleteChoiceInput.prototype = {
      * Creates list for selected items
      */
     createSelectedItemsList: function () {
+        this.selectedItemsList = $('<ul class="autocomplete-choice-input-selected-list">');
+
         this.selectedItemsList.hide();
         this.element.parent().append(this.selectedItemsList);
         this.selectedItemsList.css('min-width', this.element.parent().width());
@@ -119,6 +138,8 @@ AutocompleteChoiceInput.prototype = {
      * Creates list for suggested items
      */
     createAutocompleteList: function () {
+        this.autocompleteList = $('<ul class="autocomplete-choice-input-autocomplete">');
+
         this.autocompleteList.hide();
         this.element.parent().append(this.autocompleteList);
         this.autocompleteList.css('min-width', this.element.parent().width());
@@ -156,6 +177,11 @@ AutocompleteChoiceInput.prototype = {
      */
     updateSelectedItemsList: function () {
         this.selectedItemsList.find('li').remove();
+
+        if (Object.keys(this.selectedData).length > 0)
+            this.selectedItemsList.show();
+        else
+            this.selectedItemsList.hide();
 
         var self = this;
         for (var key in this.selectedData) {
