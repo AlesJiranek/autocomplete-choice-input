@@ -5,6 +5,10 @@ Rendering all of them was slow and not necessary, because it is impossible to sc
 I needed something with select box functionality without rendering all options. So I created this plugin.
 
 
+## Documentation and examples
+You can find documentation, examples and FAQ on http://alesjiranek.github.com/autocomplete-choice-input
+
+
 ## Basic Usage
 
 In default selected values are submitted as array.
