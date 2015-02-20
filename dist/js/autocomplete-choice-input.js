@@ -66,8 +66,21 @@ AutocompleteChoiceInput.prototype = {
      * Sets values for suggestion
      */
     setAutocompleteData: function () {
-        if (this.options.data == null)
-            this.autocompleteValues = this.element.data('options');
+
+        if (this.options.data == null) {
+            var data = this.element.data('options');
+
+            if ($.isArray(data)) {
+                for (var i = 0; i < this.element.data.length; i++) {
+                    if(typeof data[i] != 'string')
+                        throw "Unsupported data type";
+
+                    this.autocompleteValues[data[i]] = data[i];
+                }
+            }
+            else
+                this.autocompleteValues = data;
+        }
         else {
             this.autocompleteValues = this.options.data;
         }
@@ -221,7 +234,7 @@ AutocompleteChoiceInput.prototype = {
         }
     },
 
-    
+
     /**
      * Update suggested items list
      * @param values   Object    suggested items
