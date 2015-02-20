@@ -7,7 +7,7 @@
  */
 jQuery.fn.extend({
     autocompleteChoiceInput: function (options) {
-        this.filter('input[type="text"]').each(function () {
+        this.filter('input[type="text"], select').each(function () {
             new AutocompleteChoiceInput(this, options);
         });
     }
@@ -66,24 +66,67 @@ AutocompleteChoiceInput.prototype = {
      * Sets values for suggestion
      */
     setAutocompleteData: function () {
+        var data = {};
 
         if (this.options.data == null) {
-            var data = this.element.data('options');
+            data = this.element.data('options');
 
-            if ($.isArray(data)) {
-                for (var i = 0; i < this.element.data.length; i++) {
-                    if(typeof data[i] != 'string')
-                        throw "Unsupported data type";
-
-                    this.autocompleteValues[data[i]] = data[i];
+            if (typeof data === 'undefined') {
+                if (this.element.is('select')) {
+                    data = this.parseSelectOptions();
                 }
+                else
+                    data = {};
             }
+        }
+        else
+            data = this.options.data;
+
+        if ($.isArray(data)) {
+            var temp = {};
+            for (var i = 0; i < data.length; i++) {
+                if (typeof data[i] != 'string')
+                {
+                    console.error('Invalid type of data for suggestion.');
+                    temp = {};
+                    break;
+                }
+                temp[data[i]] = data[i];
+            }
+
+            data = temp;
+        }
+
+        this.autocompleteValues = data;
+
+        if (Object.keys(this.autocompleteValues).length < 1)
+            this.setInputDisabled();
+    },
+
+
+    /**
+     * Parses select box options as values for suggestion
+     */
+    parseSelectOptions: function () {
+        var data = {};
+        this.element.find('option').each(function () {
+            var option = $(this);
+
+            if (option.attr('value') != '')
+                data[option.attr('value')] = option.text();
             else
-                this.autocompleteValues = data;
-        }
-        else {
-            this.autocompleteValues = this.options.data;
-        }
+                data[option.text()] = option.text();
+        });
+
+        return data;
+    },
+
+
+    /**
+     * Set plugins input disabled
+     */
+    setInputDisabled: function () {
+        this.input.attr('disabled', 'disabled');
     },
 
 
@@ -333,17 +376,36 @@ AutocompleteChoiceInput.prototype = {
      * Creates default selected list from input value
      */
     setDefaultSelectedItems: function () {
-        if (this.element.val() != '') {
-            var values = this.element.val();
-            values = values.split(this.options.singleTextDelimiter);
+        if (this.element.is('select')) {
+            var self = this;
 
-            for (var i = 0; i < values.length; i++) {
-                if (typeof this.autocompleteValues[values[i]] !== 'undefined') {
-                    this.selectedData[values[i]] = this.autocompleteValues[values[i]];
+            this.element.find('option').each(function () {
+                var option = $(this);
+
+                if (option.attr('selected') == 'selected') {
+                    var value = option.attr('value');
+                    var label = option.text();
+
+                    if (typeof value !== 'undefined' && typeof self.autocompleteValues[value] !== 'undefined')
+                        self.selectedData[value] = label;
+                    else if (typeof self.autocompleteValues[label] !== 'undefined')
+                        self.selectedData[label] = label;
+                }
+            });
+        }
+        else {
+            if (this.element.val() != '') {
+                var values = this.element.val();
+                values = values.split(this.options.singleTextDelimiter);
+
+                for (var i = 0; i < values.length; i++) {
+                    if (typeof this.autocompleteValues[values[i]] !== 'undefined') {
+                        this.selectedData[values[i]] = this.autocompleteValues[values[i]];
+                    }
                 }
             }
         }
-
         this.updateSelected();
+        this.selectedItemsList.hide();
     }
 };
