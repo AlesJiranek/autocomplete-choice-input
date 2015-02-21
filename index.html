@@ -29,9 +29,10 @@
         <div class="row">
             <div class="col-md-3" id="affix">
                 <ul class="nav nav-pills nav-stacked sidebar affix">
-                    <li><a href="#getting-started">Getting Started</a></li>
+                    <li class="active"><a href="#getting-started">Getting Started</a></li>
                     <li><a href="#options">Configuration Options</a></li>
                     <li><a href="#further-examples">Further examples</a></li>
+                    <li><a href="#keyboard-support">Keyboard support</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
@@ -292,7 +293,7 @@
                     <h2 id="further-examples">Further examples</h2>
                 </div>
 
-                <div class="row">
+                <h3>Using HTML Select</h3>
                     <p>You can use select box instead of text input but it is not main purpose of this plugin.
                         Primary Autocomplete Choice Input was designed to bring select box functionality to text input,
                         because I needed user to choose one or more from 10 000 options but rendering select box with this
@@ -312,7 +313,7 @@
                             <option value="val-2">Alaska</option>
                             <option value="val-3">California</option>
                             <option value="val-4">New York</option>
-                            <option value="val-5">Texaslt;</option>
+                            <option value="val-5">Texas</option>
                         </select>
                     </div>
                     <div class="highlight">
@@ -328,10 +329,197 @@
     &lt;option value="val-2"&gt;Alaska&lt;/option&gt;
     &lt;option value="val-3"&gt;California&lt;/option&gt;
     &lt;option value="val-4"&gt;New York&lt;/option&gt;
-    &lt;option value="val-5"&gt;Texaslt;&lt;/option&gt;
+    &lt;option value="val-5"&gt;Texas&lt;/option&gt;
 &lt;/select&gt;
 </pre>
                     </div>
+
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-select2').autocompleteChoiceInput();
+                            });
+                        </script>
+
+                        <select class="form-control" name="example-select2" id="example-select2" data-options="{&quot;val-1&quot;:&quot;Arkansas&quot;,&quot;val-2&quot;:&quot;Colorado&quot;,&quot;val-3&quot;:&quot;Hawaii&quot;,&quot;val-4&quot;:&quot;Nevada&quot;,&quot;val-5&quot;:&quot;Utah&quot;}">
+                            <option value="val-1">Alabama</option>
+                            <option value="val-2">Alaska</option>
+                            <option value="val-3">California</option>
+                            <option value="val-4">New York</option>
+                            <option value="val-5">Texas</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-select2').autocompleteChoiceInput();
+    });
+&lt;/script&gt;
+
+&lt;select class="form-control" name="example-select2" id="example-select2"
+         data-options="{&quot;val-1&quot;:&quot;Arkansas&quot;,&quot;val-2&quot;:&quot;Colorado&quot;,&quot;val-3&quot;:&quot;Hawaii&quot;,&quot;val-4&quot;:&quot;Nevada&quot;,&quot;val-5&quot;:&quot;Utah&quot;}" &gt;
+    &lt;option value="val-1"&gt;Alabama&lt;/option&gt;
+    &lt;option value="val-2"&gt;Alaska&lt;/option&gt;
+    &lt;option value="val-3"&gt;California&lt;/option&gt;
+    &lt;option value="val-4"&gt;New York&lt;/option&gt;
+    &lt;option value="val-5"&gt;Texas&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                    </div>
+
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-select3').autocompleteChoiceInput({
+                                    data: {"val-1":"Arkansas","val-2":"Colorado","val-3":"Hawaii","val-4":"Nevada","val-5":"Utah"}
+                                });
+                            });
+                        </script>
+
+                        <select class="form-control" name="example-select3" id="example-select3">
+                            <option value="val-1">Alabama</option>
+                            <option value="val-2">Alaska</option>
+                            <option value="val-3">California</option>
+                            <option value="val-4">New York</option>
+                            <option value="val-5">Texas</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-select3').autocompleteChoiceInput({
+             data: {"val-1":"Arkansas","val-2":"Colorado","val-3":"Hawaii","val-4":"Nevada","val-5":"Utah"}
+         });
+    });
+&lt;/script&gt;
+
+&lt;select class="form-control" name="example-select3" id="example-select3"&gt;
+    &lt;option value="val-1"&gt;Alabama&lt;/option&gt;
+    &lt;option value="val-2"&gt;Alaska&lt;/option&gt;
+    &lt;option value="val-3"&gt;California&lt;/option&gt;
+    &lt;option value="val-4"&gt;New York&lt;/option&gt;
+    &lt;option value="val-5"&gt;Texas&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                    </div>
+
+                    <hr>
+
+                    <h3>Setting default value</h3>
+                    <p>
+                        You can set default selected items by setting their values separated with <code>;</code> as default input value. You can change default separator by setting <code>singleTextSeparator</code>.
+                        Default values has to be members of array of items for suggestion.
+                    </p>
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-defaultValue').autocompleteChoiceInput();
+                            });
+                        </script>
+
+                        <input type="text" class="form-control" name="example-defaultValue" id="example-defaultValue" value="val-1;val-2" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-defaultSelect').autocompleteChoiceInput();
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-defaultValue" id="example-defaultValue" value="val-1;val-2" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                    </div>
+
+                    <p>
+                        If you are using select box, you can set default values by setting options attribute <code>selected="selected"</code>.
+                    </p>
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-defaultSelect').autocompleteChoiceInput();
+                            });
+                        </script>
+
+                        <select class="form-control" name="example-defaultSelect" id="example-defaultSelect" >
+                            <option value="val-1">Alabama</option>
+                            <option value="val-2" selected="selected">Alaska</option>
+                            <option value="val-3">California</option>
+                            <option value="val-4">New York</option>
+                            <option value="val-5">Texas</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-defaultSelect').autocompleteChoiceInput();
+    });
+&lt;/script&gt;
+
+&lt;select class="form-control" name="example-defaultSelect" id="example-defaultSelect"&gt;
+    &lt;option value="val-1"&gt;Alabama&lt;/option&gt;
+    &lt;option value="val-2" selected="selected"&gt;Alaska&lt;/option&gt;
+    &lt;option value="val-3"&gt;California&lt;/option&gt;
+    &lt;option value="val-4"&gt;New York&lt;/option&gt;
+    &lt;option value="val-5"&gt;Texas&lt;/option&gt;
+&lt;/select&gt;
+</pre>
+                    </div>
+
+                    <hr>
+
+                    <h3>Using flat array with data</h3>
+                    <p>
+                        If you don't need to use different labels and values you can pass data for suggestion in flat array.
+                    </p>
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-array').autocompleteChoiceInput({
+                                    data: ["Alabama","Alaska","California","New York","Texas"]
+                                });
+                            });
+                        </script>
+
+                        <input type="text" class="form-control" name="example-array" id="example-array">
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-defaultSelect').autocompleteChoiceInput({
+             data: ["Alabama","Alaska","California","New York","Texas"]
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-array" id="example-array"&gt;
+</pre>
+                    </div>
+
+                <div class="page-header">
+                    <h2 id="keyboard-support">Keyboard support</h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <code>Arrow Up/Arrow Down</code>
+                    </div>
+                    <div class="col-md-9">
+                        Move in suggested items list up/down.
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 10px;">
+                    <div class="col-md-3">
+                        <code>Enter</code>
+                    </div>
+                    <div class="col-md-9">
+                        Add selected suggested item to list of selected items.
+                    </div>
+                </div>
                 </div>
             </div>
         </div>
