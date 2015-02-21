@@ -1,5 +1,5 @@
 /**!
- * Turbo Select v0.9 (https://github.com/AlesJiranek/autocomplete-choice-input)
+ * Autocomplete Choice Input v1.0.0 (https://github.com/AlesJiranek/autocomplete-choice-input)
  *
  * Copyright 2015 Ales Jiranek
  *
