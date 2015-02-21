@@ -25,7 +25,7 @@
      */
     function AutocompleteChoiceInput(element, options) {
         this.element = $(element);
-        this.options = $.extend(this.options, options);
+        this.options = $.extend({}, this.defaults, options);
 
         if (this.element.data('autocompletechoiceinput') === true) {
             return;
@@ -38,20 +38,14 @@
     }
 
     AutocompleteChoiceInput.prototype = {
-        options: {
+        defaults: {
             minLength: 2,                       // starts autocomplete after count of chars
             maxItems: 10,                       // max autocompleted items
             singleText: false,                  // if true, selected items are string value, else output is array
             singleTextDelimiter: ';',           // values separator if singleText is true
             data: null                          // values for autocomplete
         },
-        selectedData: {},
-        autocompleteValues: {},
-        cache: {},
-        input: {},
-        selectedItemsCounter: {},
-        selectedItemsList: {},
-        autocompleteList: {},
+
 
         /**
          * Creates autocomplete choice input
@@ -72,6 +66,8 @@
          * Sets values for suggestion
          */
         setAutocompleteData: function () {
+            this.autocompleteValues = {};
+            this.cache = {};
             var data = {};
 
             if (this.options.data === null) {
@@ -186,6 +182,7 @@
          * Creates list for selected items
          */
         createSelectedItemsList: function () {
+            this.selectedData = {};
             this.selectedItemsList = $('<ul class="autocomplete-choice-input-selected-list">');
 
             this.selectedItemsList.hide();
@@ -348,6 +345,7 @@
                 self.input.val('');
             };
         },
+
 
         /**
          * Suggests items for given input
