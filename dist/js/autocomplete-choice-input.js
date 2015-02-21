@@ -406,10 +406,12 @@
          */
         getSelectedAsString: function () {
             var str = '';
+            var delimiter = '';
 
             for (var key in this.selectedData) {
                 if (this.selectedData.hasOwnProperty(key)) {
-                    str += key + this.options.singleTextDelimiter;
+                    str += delimiter + key;
+                    delimiter = this.options.singleTextDelimiter;
                 }
             }
 
