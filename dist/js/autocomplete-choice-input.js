@@ -5,7 +5,7 @@
  *
  * Licensed under GNU GPL, Version 2.0.
  *
-*/
+ */
 (function ($) {
     "use strict"; //jsHint
 
@@ -364,11 +364,13 @@
                 var matches = {};
                 var counter = 0;
                 for (var key in this.autocompleteValues) {
-                    if (this.autocompleteValues[key].toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-                        matches[key] = this.autocompleteValues[key];
+                    if (this.autocompleteValues.hasOwnProperty(key)) {
+                        if (this.autocompleteValues[key].toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+                            matches[key] = this.autocompleteValues[key];
 
-                        if (++counter >= this.options.maxItems) {
-                            break;
+                            if (++counter >= this.options.maxItems) {
+                                break;
+                            }
                         }
                     }
                 }
