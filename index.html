@@ -31,6 +31,7 @@
                 <ul class="nav nav-pills nav-stacked sidebar affix">
                     <li><a href="#getting-started">Getting Started</a></li>
                     <li><a href="#options">Configuration Options</a></li>
+                    <li><a href="#further-examples">Further examples</a></li>
                 </ul>
             </div>
             <div class="col-md-9">
@@ -125,7 +126,9 @@
                         </div>
                     </div>
                 </div>
+
                 <hr>
+
                 <div class="row">
                     <div class="col-md-2">
                         <code>maxItems</code>
@@ -156,6 +159,178 @@
     data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
 </pre>
                         </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>singleText</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-singleText').autocompleteChoiceInput({
+                                    singleText: true
+                                });
+
+                                $('#example-singleText-value').on('click',function() {
+                                    alert($('#example-singleText').val());
+                                });
+                            });
+                        </script>
+                        <p><code>singleText</code> sets output mode. If this parameter is true, selected items are set as string of default input. Else if <code>singleText</code> is false, new hidden input is created for each selected item.</p>
+                        <div class="bs-example">
+                            <p>
+                            <input type="text" class="form-control" name="example-singleText" id="example-singleText" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                            </p>
+                            <p><button id="example-singleText-value" class="btn btn-info">Show input value</button></p>
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-singleText').autocompleteChoiceInput({
+            singleText: true
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-singleText" id="example-singleText"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>singleTextDelimiter</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-singleTextDelimiter').autocompleteChoiceInput({
+                                    singleText: true,
+                                    singleTextDelimiter: '#delimiter#'
+                                });
+
+                                $('#example-singleTextDelimiter-value').on('click',function() {
+                                    alert($('#example-singleTextDelimiter').val());
+                                });
+                            });
+                        </script>
+                        <p>&nbsp;&nbsp;&nbsp; ysets character or string which delimits each values if <code>singleText</code> is <code>true</code></p>
+                        <div class="bs-example">
+                            <p>
+                            <input type="text" class="form-control" name="example-singleTextDelimiter" id="example-singleTextDelimiter" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                            </p>
+                            <p><button id="example-singleTextDelimiter-value" class="btn btn-info">Show input value</button></p>
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-singleTextDelimiter').autocompleteChoiceInput({
+            singleText: true,
+            singleTextDelimiter: '#delimiter#'
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-singleTextDelimiter" id="example-singleTextDelimiter"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>data</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                var options = {"val-1":"Alabama","val-2":"Alaska","val-3":"California","val-4":"New York","val-5":"Texas"};
+
+                                $('#example-data').autocompleteChoiceInput({
+                                    data: options
+                                });
+                            });
+                        </script>
+                        <p><code>data</code> allows you to pass suggestion data differently than via
+                            <coda>data-options</coda> attribute
+                        </p>
+                        <div class="bs-example">
+                            <input type="text" class="form-control" name="example-data" id="example-data">
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         var options = {"val-1":"Alabama","val-2":"Alaska","val-3":"California","val-4":"New York","val-5":"Texas"};
+
+         $('#example-data').autocompleteChoiceInput({
+            data: options
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-data" id="example-data"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="page-header">
+                    <h2 id="further-examples">Further examples</h2>
+                </div>
+
+                <div class="row">
+                    <p>You can use select box instead of text input but it is not main purpose of this plugin.
+                        Primary Autocomplete Choice Input was designed to bring select box functionality to text input,
+                        because I needed user to choose one or more from 10 000 options but rendering select box with this
+                        amount of options is slow. By default select options are parsed as values for suggestion but you can
+                        override them with <code>data-options</code> attribute or <code>data</code> option as well as in text input
+                         examples above.
+                    </p>
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-select').autocompleteChoiceInput();
+                            });
+                        </script>
+
+                        <select class="form-control" name="example-select" id="example-select">
+                            <option value="val-1">Alabama</option>
+                            <option value="val-2">Alaska</option>
+                            <option value="val-3">California</option>
+                            <option value="val-4">New York</option>
+                            <option value="val-5">Texaslt;</option>
+                        </select>
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-select').autocompleteChoiceInput();
+    });
+&lt;/script&gt;
+
+&lt;select class="form-control" name="example-select" id="example-select"&gt;
+    &lt;option value="val-1"&gt;Alabama&lt;/option&gt;
+    &lt;option value="val-2"&gt;Alaska&lt;/option&gt;
+    &lt;option value="val-3"&gt;California&lt;/option&gt;
+    &lt;option value="val-4"&gt;New York&lt;/option&gt;
+    &lt;option value="val-5"&gt;Texaslt;&lt;/option&gt;
+&lt;/select&gt;
+</pre>
                     </div>
                 </div>
             </div>
