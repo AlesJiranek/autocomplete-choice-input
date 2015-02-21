@@ -17,6 +17,10 @@ div.autocomplete-choice-input ul li:hover {
 	background-color: #e5e5e5;
 }
 
+div.autocomplete-choice-input li .remove-button {
+	cursor: pointer;
+}
+
 div.autocomplete-choice-input li .remove-button:after {
 	font-family: "FontAwesome","Glyphicons Halflings", Arial;
 	color: transparent;
