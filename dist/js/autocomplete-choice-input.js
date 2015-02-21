@@ -43,7 +43,8 @@
             maxItems: 10,                       // max autocompleted items
             singleText: false,                  // if true, selected items are string value, else output is array
             singleTextDelimiter: ';',           // values separator if singleText is true
-            data: null                          // values for autocomplete
+            data: null,                         // values for autocomplete
+            keyboardSupport: true               // allow selecting autocompleted items with keyboard
         },
 
 
@@ -213,7 +214,12 @@
          * Adds listener to keyup event to start suggestion
          */
         addInputListener: function () {
-            this.input.on('keyup', $.proxy(this.suggestItems, this));
+            if (this.options.keyboardSupport === true) {
+                this.addKeyboardSupport();
+            }
+            else {
+                this.input.on('keyup', $.proxy(this.suggestItems, this));
+            }
         },
 
 
@@ -241,10 +247,7 @@
         updateSelectedItemsList: function () {
             this.selectedItemsList.find('li').remove();
 
-            if (Object.keys(this.selectedData).length > 0) {
-                this.selectedItemsList.show();
-            }
-            else {
+            if (Object.keys(this.selectedData).length < 1) {
                 this.selectedItemsList.hide();
             }
 
@@ -456,6 +459,99 @@
             }
             this.updateSelected();
             this.selectedItemsList.hide();
+        },
+
+
+        /**
+         * Binds callbacks for keyboard support
+         */
+        addKeyboardSupport: function () {
+            var self = this;
+
+            this.element.parent().off('keyup.autocompletechoiceinput').on('keyup.autocompletechoiceinput', $.proxy(function (event) {
+
+                if (event.which === 38) {
+                    self.onPressKeyUp();
+                    event.stopPropagation();
+                }
+                else if (event.which === 40) {
+                    self.onPressKeyDown();
+                    event.stopPropagation();
+                }
+                else if (event.which === 13) {
+                    self.onPressKeyEnter();
+                    event.stopPropagation();
+                }
+                else {
+                    self.suggestItems();
+                }
+            }));
+
+            this.element.parent().off('keydown.autocompletechoiceinput').on('keydown.autocompletechoiceinput', $.proxy(function (event) {
+                if (self.autocompleteList.is(":visible")) {
+                    if (event.which === 38 || event.which === 40) {
+                        return false;
+                    }
+                }
+            }));
+        },
+
+
+        /**
+         * Key Up functionality
+         */
+        onPressKeyUp: function () {
+            if (this.autocompleteList.is(":visible")) {
+                var active = this.autocompleteList.find(".active");
+
+                if (active.length === 0) {
+                    this.autocompleteList.find("li:last-child").addClass("active");
+                }
+                else {
+                    var index = this.autocompleteList.find("li.active").index();
+
+                    if (index > 0) {
+                        this.autocompleteList.find("li.active").removeClass('active');
+                        this.autocompleteList.find("li:eq(" + (index - 1) + ")").addClass('active');
+                    }
+                }
+            }
+        },
+
+
+        /**
+         * Key Down functionality
+         */
+        onPressKeyDown: function () {
+            if (this.autocompleteList.is(":visible")) {
+                var active = this.autocompleteList.find(".active");
+
+                if (active.length === 0) {
+                    this.autocompleteList.find("li:first-child").addClass("active");
+                }
+                else {
+                    var index = this.autocompleteList.find("li.active").index();
+
+                    if (index < this.autocompleteList.find('li').length - 1) {
+                        this.autocompleteList.find("li.active").removeClass('active');
+                        this.autocompleteList.find("li:eq(" + (index + 1) + ")").addClass('active');
+                    }
+                }
+            }
+        },
+
+
+        /**
+         * Key Down functionality
+         */
+        onPressKeyEnter: function () {
+            if (this.autocompleteList.is(":visible")) {
+                if (this.autocompleteList.find("li.active").length !== 0) {
+                    this.addSuggestedItem(this.autocompleteList.find("li.active"));
+                    this.autocompleteList.hide();
+                    this.input.val('');
+                }
+            }
         }
     };
 }(jQuery));

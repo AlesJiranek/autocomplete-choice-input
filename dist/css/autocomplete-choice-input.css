@@ -13,7 +13,7 @@ div.autocomplete-choice-input ul li {
 	padding: 5px;
 }
 
-div.autocomplete-choice-input ul li:hover {
+div.autocomplete-choice-input ul li:hover, div.autocomplete-choice-input ul li.active {
 	background-color: #e5e5e5;
 }
 
