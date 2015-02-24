@@ -203,7 +203,7 @@
         createAutocompleteList: function () {
             this.autocompleteList = $('<ul class="autocomplete-choice-input-autocomplete">');
 
-            this.autocompleteList.hide();
+            this.updateAutocompleteItemsList({});
             this.element.parent().append(this.autocompleteList);
             this.autocompleteList.css('min-width', this.element.parent().width());
         },
@@ -343,7 +343,7 @@
             var self = this;
             return function () {
                 self.addSuggestedItem(li);
-                self.autocompleteList.hide();
+                self.updateAutocompleteItemsList({});
                 self.input.val('');
             };
         },
@@ -491,6 +491,9 @@
                     if (event.which === 38 || event.which === 40) {
                         return false;
                     }
+                    else if (event.which === 13) {
+                        event.preventDefault(event);
+                    }
                 }
             }));
         },
@@ -547,7 +550,7 @@
             if (this.autocompleteList.is(":visible")) {
                 if (this.autocompleteList.find("li.active").length !== 0) {
                     this.addSuggestedItem(this.autocompleteList.find("li.active"));
-                    this.autocompleteList.hide();
+                    this.updateAutocompleteItemsList({});
                     this.input.val('');
                 }
             }
