@@ -43,7 +43,9 @@
             singleText: false,                  // if true, selected items are string value, else output is array
             singleTextDelimiter: ';',           // values separator if singleText is true
             data: null,                         // values for autocomplete
-            keyboardSupport: true               // allow selecting autocompleted items with keyboard
+            keyboardSupport: true,              // allow selecting autocompleted items with keyboard
+            allowAdd: false,                    // allow adding new items
+            addText: 'Create %item%...'         // suggested string for creating new item
         },
 
 
@@ -312,11 +314,19 @@
         updateAutocompleteItemsList: function (values) {
             this.autocompleteList.find('li').remove();
 
-            if (Object.keys(values).length > 0) {
+            if (Object.keys(values).length > 0 || (this.options.allowAdd && this.input.val())) {
                 this.autocompleteList.show();
             }
             else {
                 this.autocompleteList.hide();
+            }
+
+            if (this.options.allowAdd && typeof values[this.input.val()] === 'undefined') {
+                var addLi = $('<li>');
+                addLi.attr('id', this.input.val());
+                addLi.text(this.options.addText.replace('%item%', this.input.val()));
+                addLi.on('click', this.createNewItem(addLi));
+                this.autocompleteList.append(addLi);
             }
 
             for (var key in values) {
@@ -343,8 +353,27 @@
             var self = this;
             return function () {
                 self.addSuggestedItem(li);
-                self.updateAutocompleteItemsList({});
                 self.input.val('');
+                self.updateAutocompleteItemsList({});
+                self.setFocus();
+            };
+        },
+
+
+        /**
+         * Callback function called after clicking on first suggested item which creates new item if allowAdd = true
+         *
+         * @param li
+         * @returns {Function}
+         */
+        createNewItem: function (li) {
+            var self = this;
+            return function () {
+                li.text(li.attr('id'));
+                self.addSuggestedItem(li);
+                self.input.val('');
+                self.updateAutocompleteItemsList({});
+                self.setFocus();
             };
         },
 
@@ -549,11 +578,29 @@
         onPressKeyEnter: function () {
             if (this.autocompleteList.is(":visible")) {
                 if (this.autocompleteList.find("li.active").length !== 0) {
-                    this.addSuggestedItem(this.autocompleteList.find("li.active"));
-                    this.updateAutocompleteItemsList({});
-                    this.input.val('');
+                    if (this.options.allowAdd && this.autocompleteList.find("li.active").index() === 0) {
+                        this.autocompleteList.find("li.active").click();
+                    }
+                    else {
+                        this.addSuggestedItem(this.autocompleteList.find("li.active"));
+                        this.updateAutocompleteItemsList({});
+                        this.input.val('');
+                    }
+                }
+                else {
+                    if (this.options.allowAdd) {
+                        this.autocompleteList.find("li").first().click();
+                    }
                 }
             }
+        },
+
+
+        /**
+         * Sets focus to input
+         */
+        setFocus: function () {
+            this.input.focus();
         }
     };
 }(jQuery));
