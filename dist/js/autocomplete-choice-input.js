@@ -578,14 +578,7 @@
         onPressKeyEnter: function () {
             if (this.autocompleteList.is(":visible")) {
                 if (this.autocompleteList.find("li.active").length !== 0) {
-                    if (this.options.allowAdd && this.autocompleteList.find("li.active").index() === 0) {
-                        this.autocompleteList.find("li.active").click();
-                    }
-                    else {
-                        this.addSuggestedItem(this.autocompleteList.find("li.active"));
-                        this.updateAutocompleteItemsList({});
-                        this.input.val('');
-                    }
+                    this.autocompleteList.find("li.active").click();
                 }
                 else {
                     if (this.options.allowAdd) {
