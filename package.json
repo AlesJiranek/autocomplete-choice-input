@@ -1,0 +1,36 @@
+{
+  "name": "autocomplete-choice-input",
+  "title": "Autocomplete Choice Input",
+  "version": "1.0.0",
+  "author": {
+    "name": "Aleš Jiránek",
+    "url": "http://alesjiranek.github.io/autocomplete-choice-input/"
+  },
+  "description": "jQuery plugin for fast selects with huge amount of options",
+  "keywords": [
+    "autocomplete",
+    "choice",
+    "select",
+    "input"
+  ],
+  "licenses": [
+    {
+      "type": "Apache License",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    {
+      "type": "BSD 3",
+      "url": "https://github.com/AlesJiranek/autocomplete-choice-input/blob/master/LICENSE"
+    }
+  ],
+  "bugs": "https://github.com/AlesJiranek/autocomplete-choice-input/issues",
+  "homepage": "https://github.com/AlesJiranek/autocomplete-choice-input",
+  "docs": "http://alesjiranek.github.io/autocomplete-choice-input",
+  "download": "https://github.com/AlesJiranek/autocomplete-choice-input",
+  "dependencies": {
+    "jquery": ">=1.10"
+  },
+  "devDependencies": {
+    "mocha": "2.1.0"
+  }
+}
