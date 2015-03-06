@@ -1,0 +1,41 @@
+{
+  "name": "autocomplete-choice-input",
+  "title": "Autocomplete Choice Input",
+  "version": "1.0.0",
+  "author": {
+    "name": "Aleš Jiránek",
+    "url": "http://alesjiranek.github.io/autocomplete-choice-input/"
+  },
+  "description": "jQuery plugin for fast selects with huge amount of options",
+  "keywords": [
+    "autocomplete",
+    "choice",
+    "select",
+    "input"
+  ],
+  "license": "MIT",
+  "main": [
+    "./dist/js/autocomplete-choice-input.js",
+    "./dist/css/autocomplete-choice-input.css"
+  ],
+  "bugs": "https://github.com/AlesJiranek/autocomplete-choice-input/issues",
+  "homepage": "https://github.com/AlesJiranek/autocomplete-choice-input",
+  "docs": "http://alesjiranek.github.io/autocomplete-choice-input",
+  "download": "https://github.com/AlesJiranek/autocomplete-choice-input",
+  "dependencies": {
+    "jquery": ">=1.10"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-coffee": "^0.12.0",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-uglify": "^0.8.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-contrib-cssmin": "^0.12.2"
+  },
+  "scripts": {
+    "test": "grunt travis --verbose"
+  }
+}

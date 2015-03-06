@@ -1,11 +1,3 @@
-/**!
- *  Autocomplete Choice Input - v1.0.0
- *  jQuery plugin for fast selects with huge amount of options
- *  https://github.com/AlesJiranek/autocomplete-choice-input
- *
- *  Made by Aleš Jiránek
- *  Under MIT License
- */
 ;(function ($, window, document, undefined) {
     "use strict"; //jsHint
 
