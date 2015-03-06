@@ -29,8 +29,5 @@
   "download": "https://github.com/AlesJiranek/autocomplete-choice-input",
   "dependencies": {
     "jquery": ">=1.10"
-  },
-  "devDependencies": {
-    "mocha": "2.1.0"
   }
 }
