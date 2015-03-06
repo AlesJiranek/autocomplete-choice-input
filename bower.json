@@ -13,15 +13,10 @@
     "select",
     "input"
   ],
-  "licenses": [
-    {
-      "type": "Apache License",
-      "url": "http://www.apache.org/licenses/LICENSE-2.0"
-    },
-    {
-      "type": "BSD 3",
-      "url": "https://github.com/AlesJiranek/autocomplete-choice-input/blob/master/LICENSE"
-    }
+  "license": "MIT",
+  "main": [
+    "./dist/js/autocomplete-choice-input.js",
+    "./dist/css/autocomplete-choice-input.css"
   ],
   "bugs": "https://github.com/AlesJiranek/autocomplete-choice-input/issues",
   "homepage": "https://github.com/AlesJiranek/autocomplete-choice-input",
@@ -29,5 +24,11 @@
   "download": "https://github.com/AlesJiranek/autocomplete-choice-input",
   "dependencies": {
     "jquery": ">=1.10"
-  }
+  },
+  "ignore": [
+    "docs/*",
+    "tests/*",
+    "*.html",
+    "*.md"
+  ]
 }
