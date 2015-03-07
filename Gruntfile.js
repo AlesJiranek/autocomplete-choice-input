@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     grunt.initConfig({
 
@@ -64,22 +64,48 @@ module.exports = function(grunt) {
 
         // watch for changes to source
         // Better than calling grunt a million times
-        // (call 'grunt watch')
+        // (call "grunt watch")
         watch: {
-            files: ['src/*'],
-            tasks: ['default']
+            src: {
+                files: ["src/js/*", "src/css/*"],
+                tasks: ["default"]
+            },
+            tests: {
+                files: ["tests/*"],
+                tasks: ["test"]
+            }
+        },
+
+
+        jasmine: {
+            src: "dist/**/*.js",
+            options: {
+                specs: "tests/tests.js",
+                vendor: [
+                    "node_modules/jquery/dist/jquery.min.js",
+                    "node_modules/jquery-simulate-ext/libs/bililiteRange.js",
+                    "node_modules/jquery-simulate-ext/libs/jquery.simulate.js",
+                    "node_modules/jquery-simulate-ext/src/jquery.simulate.ext.js",
+                    "node_modules/jquery-simulate-ext/src/jquery.simulate.drag-n-drop.js",
+                    "node_modules/jquery-simulate-ext/src/jquery.simulate.key-sequence.js",
+                    "node_modules/jquery-simulate-ext/src/jquery.simulate.key-combo.js",
+                    "node_modules/randstr/randstr.js"
+                ]
+            }
         }
 
     });
 
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-jshint");
+    grunt.loadNpmTasks("grunt-contrib-jasmine");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
     grunt.loadNpmTasks("grunt-contrib-watch");
 
     grunt.registerTask("build", ["concat", "uglify", "cssmin"]);
-    grunt.registerTask("default", ["jshint", "build"]);
+    grunt.registerTask("default", ["jshint", "build", "test"]);
+    grunt.registerTask("test", ["jasmine"]);
     grunt.registerTask("travis", ["default"]);
 
 };
