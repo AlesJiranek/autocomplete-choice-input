@@ -356,5 +356,102 @@ describe("Autocomplete Choice Input Tests", function () {
             });
         });
 
+        describe("Keyboard support", function () {
+
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+
+                $input.data("options", states);
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput();
+
+                var text = "al";
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text });
+            });
+
+            it("Should select next item when pressing arrow down", function(){
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+
+                var li = $("ul.autocomplete-choice-input-autocomplete li");
+                expect(li.first().hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+                expect(li.first().hasClass("active")).toBeFalsy();
+                expect(li.eq(1).hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+                expect(li.eq(0).hasClass("active")).toBeFalsy();
+                expect(li.eq(1).hasClass("active")).toBeFalsy();
+                expect(li.eq(2).hasClass("active")).toBeTruthy();
+            });
+
+            it("Should select previous item when pressing arrow up", function(){
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "up-arrow" });
+
+                var li = $("ul.autocomplete-choice-input-autocomplete li");
+                expect(li.first().hasClass("active")).toBeFalsy();
+                expect(li.last().hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "up-arrow" });
+                expect(li.last().hasClass("active")).toBeFalsy();
+                expect(li.eq(li.length - 2).hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "up-arrow" });
+                expect(li.last().hasClass("active")).toBeFalsy();
+                expect(li.eq(li.length - 2).hasClass("active")).toBeFalsy();
+                expect(li.eq(li.length - 3).hasClass("active")).toBeTruthy();
+            });
+
+            it("Should pass pressing down arrow three times and up arrow twice", function(){
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+
+                var li = $("ul.autocomplete-choice-input-autocomplete li");
+                expect(li.first().hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+                expect(li.first().hasClass("active")).toBeFalsy();
+                expect(li.eq(1).hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+                expect(li.eq(0).hasClass("active")).toBeFalsy();
+                expect(li.eq(1).hasClass("active")).toBeFalsy();
+                expect(li.eq(2).hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "up-arrow" });
+                expect(li.eq(2).hasClass("active")).toBeFalsy();
+                expect(li.eq(1).hasClass("active")).toBeTruthy();
+
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "up-arrow" });
+                expect(li.eq(1).hasClass("active")).toBeFalsy();
+                expect(li.first().hasClass("active")).toBeTruthy();
+            });
+
+            it("Should add selected item on pressing enter", function() {
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "down-arrow" });
+                $input.siblings("input[type=\"text\"]").simulate("key-combo", {combo: "enter" });
+
+                var list = $("ul.autocomplete-choice-input-selected-list");
+                expect(list.find("li").length).toBe(1);
+
+                var option = list.find("li").first();
+                var optionObj = {};
+
+                if (option.attr("id")) {
+                    optionObj[option.attr("id")] = option.text();
+                }
+
+                expect(optionObj).toEqual(matchStates("al",1));
+
+                var counter = $("div.autocomplete-choice-input-items-counter");
+                expect(counter.text()).toBe("1");
+
+                var hidden = $input.parent().find("input[type=\"hidden\"]");
+                expect(hidden.length).toBe(1);
+                expect(hidden.attr("name")).toBe("testInput[]");
+                expect(hidden.val()).toBe("AL");
+            });
+        });
     });
 });
