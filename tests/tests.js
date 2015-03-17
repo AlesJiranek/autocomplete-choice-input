@@ -228,4 +228,133 @@ describe("Autocomplete Choice Input Tests", function () {
             expect(counter.text()).toBe("0");
         });
     });
+
+    describe("Customizable options", function () {
+
+        describe("minLength: \"3\"", function () {
+
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+
+                $input.data("options", states);
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput({
+                    "minLength": 3
+                });
+            });
+
+            it("Should not suggest any item", function () {
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: "a"});
+                expect($("ul.autocomplete-choice-input-autocomplete li").length).toBe(0);
+
+                $input.siblings("input[type=\"text\"]").val("");
+
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: "al"});
+                expect($("ul.autocomplete-choice-input-autocomplete li").length).toBe(0);
+            });
+
+            it("Should suggest Alabama, Alaska and Palaou", function () {
+                var text = "ala";
+
+                var matches = matchStates(text);
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
+                expect($("ul.autocomplete-choice-input-autocomplete li").length).toBe(Object.keys(matches).length);
+
+                var suggested = {};
+                $("ul.autocomplete-choice-input-autocomplete li").each(function () {
+                    if ($(this).attr("id")) {
+                        suggested[$(this).attr("id")] = $(this).text();
+                    }
+                });
+
+                expect(suggested).toEqual(matches);
+            });
+        });
+
+        describe("maxItems: \"2\"", function () {
+
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+
+                $input.data("options", states);
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput({
+                    "maxItems": 2
+                });
+            });
+
+            it("Should suggest Alabama and Alaska", function () {
+                var text = "al";
+
+                var matches = matchStates(text, 2);
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
+                expect($("ul.autocomplete-choice-input-autocomplete li").length).toBe(Object.keys(matches).length);
+
+                var suggested = {};
+                $("ul.autocomplete-choice-input-autocomplete li").each(function () {
+                    if ($(this).attr("id")) {
+                        suggested[$(this).attr("id")] = $(this).text();
+                    }
+                });
+
+                expect(suggested).toEqual(matches);
+            });
+        });
+
+        describe("singleText: \"true\"", function () {
+
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+
+                $input.data("options", states);
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput({
+                    "singleText": true
+                });
+            });
+
+            it("Should set input value instead of creating hidden fields", function () {
+                var text = "alabama";
+
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
+                $("ul.autocomplete-choice-input-autocomplete li").first().simulate("click");
+                text = "alaska";
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
+                $("ul.autocomplete-choice-input-autocomplete li").first().simulate("click");
+
+                var counter = $("div.autocomplete-choice-input-items-counter");
+                expect(counter.text()).toBe("2");
+                expect($input.val()).toBe("AL;AK");
+                expect($input.parent().find("input[type=\"hidden\"]").length).toBe(0);
+            });
+        });
+
+        describe("data: {\"AL\":\"Alabama\", ...}", function(){
+
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput({
+                    "data": states
+                });
+            });
+
+            it("Should suggest Alabama", function () {
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: "alabama"});
+                var li = $("ul.autocomplete-choice-input-autocomplete li");
+                expect(li.length).toBe(1);
+                expect(li.first().attr("id")).toBe("AL");
+                expect(li.first().text()).toBe("Alabama");
+            });
+        });
+
+    });
 });
