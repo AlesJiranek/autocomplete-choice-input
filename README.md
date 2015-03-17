@@ -1,4 +1,4 @@
-# Autocomplete Choice Input
+# Autocomplete Choice Input [![Build Status](https://travis-ci.org/AlesJiranek/autocomplete-choice-input.svg?branch=master)](https://travis-ci.org/AlesJiranek/autocomplete-choice-input)
 
 This jQuery plugin was created, because I needed to create select box with thousand of options.
 Rendering all of them was slow and not necessary, because it is impossible to scroll through all the options.
