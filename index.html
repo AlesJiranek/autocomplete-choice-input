@@ -365,6 +365,45 @@
                     </div>
                 </div>
 
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>allowEdit</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-allowEdit').autocompleteChoiceInput({
+                                    allowAdd: true,
+                                    allowEdit: true
+                                });
+                            });
+                        </script>
+                        <p><code>allowEdit</code> enables to edit selected values. It depends on <code>allowAdd</code>
+                            option which has to be <code>true</code>.
+                        </p>
+                        <div class="bs-example">
+                            <input type="text" class="form-control" name="example-allowEdit" id="example-allowEdit" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-allowEdit').autocompleteChoiceInput({
+            allowAdd: true,
+            allowEdit: true
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-allowAdd" id="example-allowAdd"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="page-header">
                     <h2 id="further-examples">Further examples</h2>
                 </div>

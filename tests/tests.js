@@ -519,7 +519,7 @@ describe("Autocomplete Choice Input Tests", function () {
             });
         });
 
-        describe("addedPrefix: \"#addedValue#\"", function() {
+        describe("addedPrefix: \"#addedValue#\"", function () {
             var prefix = "#addedValue#";
             beforeEach(function () {
                 sandbox.empty();
@@ -530,11 +530,11 @@ describe("Autocomplete Choice Input Tests", function () {
 
                 $input.autocompleteChoiceInput({
                     "allowAdd": true,
-                    "addedPrefix" : prefix
+                    "addedPrefix": prefix
                 });
             });
 
-            it("Should create new item with value beginning with prefix", function(){
+            it("Should create new item with value beginning with prefix", function () {
                 var text = "ala";
                 $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
                 $("ul.autocomplete-choice-input-autocomplete li").first().simulate("click");
@@ -550,9 +550,43 @@ describe("Autocomplete Choice Input Tests", function () {
                 }
 
                 var resultObj = {};
-                resultObj[prefix+text] = text;
+                resultObj[prefix + text] = text;
 
                 expect(optionObj).toEqual(resultObj);
+            });
+        });
+
+        describe("allowEdit: true", function () {
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+
+                $input.data("options", states);
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput({
+                    "allowAdd": true,
+                    "allowEdit": true
+                });
+
+                var text = "ala";
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
+                $("ul.autocomplete-choice-input-autocomplete li").first().simulate("click");
+            });
+
+            it("Should show edit button next to each item in selected list", function () {
+                var ul = $("ul.autocomplete-choice-input-selected-list");
+                expect(ul.find("li").find(".edit-button").length).toBe(1);
+            });
+
+            it("Should remove item from selected list and put it into input", function () {
+                var ul = $("ul.autocomplete-choice-input-selected-list");
+                ul.find("li").find(".edit-button").simulate("click");
+
+                expect(ul.find("li").length).toBe(0);
+
+                var val = $input.siblings("input[type=\"text\"]").val();
+                expect(val).toBe("ala");
             });
         });
     });

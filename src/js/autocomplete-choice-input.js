@@ -11,7 +11,8 @@
             keyboardSupport: true,              // allow selecting autocompleted items with keyboard
             allowAdd: false,                    // allow adding new items
             addText: "Create %item%...",        // suggested string for creating new item,
-            addedPrefix: ""                     // prefix added to created value
+            addedPrefix: "",                    // prefix added to created value
+            allowEdit: false                    // allow editing selected values, depends on allowAdd
         };
 
     /**
@@ -246,6 +247,12 @@
                     li.attr("id", key);
                     li.text(this.selectedData[key]);
 
+                    if (this.options.allowEdit && this.options.allowAdd) {
+                        var editButton = $("<span class=\"edit-button\">");
+                        editButton.on("click", self.editSelectedItemButtonCallback(editButton));
+                        li.prepend(editButton);
+                    }
+
                     var removeButton = $("<span class=\"remove-button\">");
                     removeButton.on("click", self.removeSelectedItemButtonCallback(removeButton));
 
@@ -268,6 +275,25 @@
             return function () {
                 self.removeSelectedItem(button.closest("li"));
                 window.event.stopPropagation();
+            };
+        },
+
+
+        /**
+         * Callback function called after clicking on edit button in selected items list
+         *
+         * @param button
+         * @returns {Function}
+         */
+        editSelectedItemButtonCallback: function (button) {
+            var self = this;
+            return function () {
+                window.event.stopPropagation();
+                var li = button.closest("li");
+                self.input.val(li.text());
+                self.removeSelectedItem(li);
+                self.input.keyup(); // invokes suggestion of items
+                self.setFocus();
             };
         },
 
