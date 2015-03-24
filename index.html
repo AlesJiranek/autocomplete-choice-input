@@ -225,7 +225,7 @@
                                 });
                             });
                         </script>
-                        <p>&nbsp;&nbsp;&nbsp; ysets character or string which delimits each values if <code>singleText</code> is <code>true</code></p>
+                        <p>&nbsp;&nbsp;&nbsp; sets character or string which delimits each values if <code>singleText</code> is <code>true</code></p>
                         <div class="bs-example">
                             <p>
                             <input type="text" class="form-control" name="example-singleTextDelimiter" id="example-singleTextDelimiter" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
@@ -285,6 +285,81 @@
 &lt;/script&gt;
 
 &lt;input type="text" class="form-control" name="example-data" id="example-data"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>allowAdd</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-allowAdd').autocompleteChoiceInput({
+                                    allowAdd: true
+                                });
+                            });
+                        </script>
+                        <p><code>allowAdd</code> options enables creating new items. You can add item by clicking on <code>Add...</code>
+                            item in suggested list or by pressing <code>Enter</code> if keyboard support is enabled.
+                        </p>
+                        <div class="bs-example">
+                            <input type="text" class="form-control" name="example-allowAdd" id="example-allowAdd" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-allowAdd').autocompleteChoiceInput({
+            allowAdd: true
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-allowAdd" id="example-allowAdd"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
+</pre>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-2">
+                        <code>addedPrefix</code>
+                    </div>
+                    <div class="col-md-10">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-addedPrefix').autocompleteChoiceInput({
+                                    allowAdd: true,
+                                    addedPrefix: "#addedValue#"
+                                });
+                            });
+                        </script>
+                        <p><code>addedPrefix</code> puts given string in front of value of each item created by user
+                        </p>
+                        <div class="bs-example">
+                            <input type="text" class="form-control" name="example-addedPrefix" id="example-addedPrefix" data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}">
+                        </div>
+                        <div class="highlight">
+<pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+         $('#example-addedPrefix').autocompleteChoiceInput({
+            allowAdd: true,
+            addedPrefix: "#addedValue#"
+         });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-addedPrefix" id="example-addedPrefix"
+    data-options="{&quot;val-1&quot;:&quot;Alabama&quot;,&quot;val-2&quot;:&quot;Alaska&quot;,&quot;val-3&quot;:&quot;California&quot;,&quot;val-4&quot;:&quot;New York&quot;,&quot;val-5&quot;:&quot;Texas&quot;}"&gt;
 </pre>
                         </div>
                     </div>
