@@ -18,7 +18,8 @@
             data: null,                         // values for autocomplete
             keyboardSupport: true,              // allow selecting autocompleted items with keyboard
             allowAdd: false,                    // allow adding new items
-            addText: "Create %item%..."         // suggested string for creating new item
+            addText: "Create %item%...",        // suggested string for creating new item,
+            addedPrefix: ""                     // prefix added to created value
         };
 
     /**
@@ -86,6 +87,14 @@
                 }
 
                 data = temp;
+            }
+
+            for (var item in data) {
+                if (data.hasOwnProperty(item)) {
+                    if (data[item].indexOf(this.options.addedPrefix) >= 0) {
+                        data[item] = data[item].replace(this.options.addedPrefix, "");
+                    }
+                }
             }
 
             this.autocompleteValues = data;
@@ -356,6 +365,7 @@
             var self = this;
             return function () {
                 li.text(li.attr("id"));
+                li.attr("id", self.options.addedPrefix + li.attr("id"));
                 self.addSuggestedItem(li);
                 self.input.val("");
                 self.updateAutocompleteItemsList({});

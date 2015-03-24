@@ -518,5 +518,42 @@ describe("Autocomplete Choice Input Tests", function () {
                 expect(optionObj).toEqual(resultObj);
             });
         });
+
+        describe("addedPrefix: \"#addedValue#\"", function() {
+            var prefix = "#addedValue#";
+            beforeEach(function () {
+                sandbox.empty();
+                $input = $("<input type=\"text\" name=\"testInput\" id=\"testInput\">");
+
+                $input.data("options", states);
+                sandbox.append($input);
+
+                $input.autocompleteChoiceInput({
+                    "allowAdd": true,
+                    "addedPrefix" : prefix
+                });
+            });
+
+            it("Should create new item with value beginning with prefix", function(){
+                var text = "ala";
+                $input.siblings("input[type=\"text\"]").simulate("key-sequence", {sequence: text});
+                $("ul.autocomplete-choice-input-autocomplete li").first().simulate("click");
+
+                var list = $("ul.autocomplete-choice-input-selected-list");
+                expect(list.find("li").length).toBe(1);
+
+                var option = list.find("li").first();
+                var optionObj = {};
+
+                if (option.attr("id")) {
+                    optionObj[option.attr("id")] = option.text();
+                }
+
+                var resultObj = {};
+                resultObj[prefix+text] = text;
+
+                expect(optionObj).toEqual(resultObj);
+            });
+        });
     });
 });
