@@ -1,5 +1,5 @@
 /**!
- *  Autocomplete Choice Input - v1.0.0
+ *  Autocomplete Choice Input - v1.1.0
  *  jQuery plugin for fast selects with huge amount of options
  *  https://github.com/AlesJiranek/autocomplete-choice-input
  *
