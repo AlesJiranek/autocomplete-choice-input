@@ -22,15 +22,4 @@ $(document).ready(function(){
 ```
 
 ## Options
-
-```javascript
-$(document).ready(function(){
-    $('.a-c-i').autocompleteChoiceInput({
-        minLength: 2,                   // starts autocomplete after count of chars
-        maxItems: 10,                   // max autocompleted items
-        singleText: false,              // if true, selected items are string value, else output is array
-        singleTextDelimiter: ';',       // values separator if singleText is true
-        data: null                      // values for autocomplete, default data-options attribute
-    });
-});
-```
+You can find list of all options and examples of their usage on http://alesjiranek.github.com/autocomplete-choice-input
