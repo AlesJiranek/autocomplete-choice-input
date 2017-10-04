@@ -615,6 +615,37 @@
 </pre>
                     </div>
 
+                    <hr>
+
+                    <h3>Using an endpoint to fetch data</h3>
+                    <p>
+                        If you have an endpoint which fetches you data instead of hard coding it or passing it during initialization.
+                    </p>
+                    <div class="bs-example">
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                $('#example-endpoint').autocompleteChoiceInput({
+                                    endpoint: "/fetchData"
+                                });
+                            });
+                        </script>
+
+                        <input type="text" class="form-control" name="example-endpoint" id="example-endpoint">
+                    </div>
+                    <div class="highlight">
+                        <pre class="prettyprint linenums">
+&lt;script type="text/javascript"&gt;
+    $(document).ready(function(){
+            $('#example-endpoint').autocompleteChoiceInput({
+                endpoint: "/fetchData"
+            });
+    });
+&lt;/script&gt;
+
+&lt;input type="text" class="form-control" name="example-array" id="example-array"&gt;
+</pre>
+                    </div>
+
                 <div class="page-header">
                     <h2 id="keyboard-support">Keyboard support</h2>
                 </div>

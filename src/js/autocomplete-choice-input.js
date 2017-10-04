@@ -12,7 +12,8 @@
             allowAdd: false,                    // allow adding new items
             addText: "Create %item%...",        // suggested string for creating new item,
             addedPrefix: "",                    // prefix added to created value
-            allowEdit: false                    // allow editing selected values, depends on allowAdd
+            allowEdit: false,                   // allow editing selected values, depends on allowAdd
+            endpoint: ""                        // if available, call endpoint to fetch data
         };
 
     /**
@@ -54,10 +55,19 @@
 
             if (this.options.data === null) {
                 data = this.element.data("options");
-
                 if (typeof data === "undefined") {
                     if (this.element.is("select")) {
                         data = this.parseSelectOptions();
+                    }
+                    else if (this.options.endpoint) {
+                        $.ajax({
+                            url: this.options.endpoint
+                        }).success(function(res) {
+                            data = res.data;
+                        }).error(function(err){
+                            data = ["Alabama", "Alaska", "California", "New York", "Texas"];
+                            //This is for demo purpose because we do not have an endpoint
+                        })
                     }
                     else {
                         data = {};
