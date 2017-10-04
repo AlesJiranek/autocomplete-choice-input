@@ -13,7 +13,7 @@
             addText: "Create %item%...",        // suggested string for creating new item,
             addedPrefix: "",                    // prefix added to created value
             allowEdit: false,                   // allow editing selected values, depends on allowAdd
-            endpoint: ""                        // if available, call endpoint to fetch data
+            endpoint: null                      // if available, call endpoint to fetch data
         };
 
     /**
@@ -65,8 +65,7 @@
                         }).success(function(res) {
                             data = res.data;
                         }).error(function(err){
-                            data = ["Alabama", "Alaska", "California", "New York", "Texas"];
-                            //This is for demo purpose because we do not have an endpoint
+                            data = [];
                         })
                     }
                     else {
