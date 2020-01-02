@@ -343,7 +343,9 @@
                 this.autocompleteList.hide();
             }
 
-            if (this.options.allowAdd && typeof values[this.input.val()] === "undefined") {
+            var isInputCompleteValue = typeof values[this.input.val()] !== "undefined";
+
+            if (this.options.allowAdd && !isInputCompleteValue) {
                 var addLi = $("<li>");
                 addLi.attr("id", this.input.val());
                 addLi.text(this.options.addText.replace("%item%", this.input.val()));
@@ -359,7 +361,11 @@
 
                     li.on("click", this.suggestedItemClickCallback(li));
 
-                    this.autocompleteList.append(li);
+                    if (isInputCompleteValue && values[key] === this.input.val()) {
+                        this.autocompleteList.prepend(li);
+                    } else {
+                        this.autocompleteList.append(li);
+                    }
                 }
             }
         },
